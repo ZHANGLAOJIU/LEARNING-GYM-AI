@@ -1,19 +1,23 @@
-def minimalKSum(nums, k):
-    nums.append(0)
-    nums = list(set(nums))
-    nums.sort()
-    res = 0
-    for i in range(1, len(nums)):
-        if nums[i] - nums[i - 1] - 1 < k:
-            res += int((nums[i] + nums[i - 1]) * (nums[i] - nums[i - 1] - 1) / 2)
-            k -= nums[i] - nums[i - 1] - 1
-        else:
-            res += int((2 * nums[i - 1] + 1 + k) * k / 2)
-            return int(res)
-    res += int((2 * nums[-1] + 1 + k) * k / 2)
-    return int(res)
+from collections import defaultdict
+from collections import Counter
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        a = defaultdict(int)
+        a0 = Counter(s1)
+        for i in range(len(s2)):
+            if i >= len(s1):
+                a[s2[i - len(s1)]] -= 1
+            a[s2[i]] += 1
+            if a == a0:
+                return True
+        return False
 
-nums = [1000000000]
+nums = [9,4,1,7]
+
+s1= "ab"
+s2 = "eidbaooo"
 
 
-print(minimalKSum(nums, 1000000000))
+s = Solution()
+print(s.checkInclusion( s1,s2))
+

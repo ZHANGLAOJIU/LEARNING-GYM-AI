@@ -53,7 +53,7 @@ for episode in range(EPISODES):
 
     discrete_state = get_discrete_state(env.reset())
     done = False
-
+  
 
     while not done:
 
