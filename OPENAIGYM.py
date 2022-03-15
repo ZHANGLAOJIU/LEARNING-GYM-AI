@@ -29,6 +29,7 @@ discrete_o_w_s = (env.observation_space.high - env.observation_space.low) / D_O_
 # make the continuous observation to the discrete numbers
 # the size is 20*20*3
 
+
 q_table = np.random.uniform(low=-2, high=0, size=(D_O_S + [env.action_space.n]))
 
 # so for every possible combination of observation these are three actions
