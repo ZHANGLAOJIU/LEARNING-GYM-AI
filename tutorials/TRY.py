@@ -1,31 +1,21 @@
-# import bisect
-# class Solution:
-#     def halveArray(self, nums) -> int:
-#         target = sum(nums) / 2
-#         aaa = sum(nums)
-#         res = 0
-#         nums.sort()
-#         nums = nums[::-1]
-#         while aaa > target:
-#             aaa -= nums[-1] / 2
-#             res += 1
-#             nums[-1] /= 2
-#             temp = nums[-1]
-#             weizhi = bisect.bisect_left(nums, temp)
-#             if weizhi != len(nums) - 1:
-#                 nums.pop()
-#                 nums = nums[:weizhi] + [temp] + nums[weizhi:]
-#
-#         return res
-#
-# S = Solution()
-# text = [6,58,10,84,35,8,22,64,1,78,86,71,77]
-#
-# pattern = "ac"
-# print(S.halveArray(text))
-i = 1
-sum = 2
-while sum < 10000000:
-    sum *= 2
-    i += 1
-print(i)
+class Solution:
+    def maximumBobPoints(self, numArrows: int, aliceArrows):
+        dp = [0] * 12
+        dic = {}
+        res = [0] * 12
+        for i in range(12):
+            dp[i] = i / (aliceArrows[i] + 1)
+            dic[dp[i]] = i, aliceArrows[i] + 1
+        dp.sort()
+        dp = dp[::-1]
+        for i in range(12):
+            if numArrows >= dic[dp[i]][1]:
+                res[dic[dp[i]][0]] = dic[dp[i]][1]
+                numArrows -= dic[dp[i]][1] + 1
+        return res, dp, dic
+
+S = Solution()
+text = "SSRSSRLLRSLLRSRSSRLRRRRLLRRLSSRR"
+aliceArrows = [1,1,0,1,0,0,2,1,0,1,2,0]
+numArrows = 9
+print(S.maximumBobPoints( numArrows,aliceArrows))
