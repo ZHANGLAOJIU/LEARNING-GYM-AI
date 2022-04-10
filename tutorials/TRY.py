@@ -1,21 +1,45 @@
 class Solution:
-    def maximumBobPoints(self, numArrows: int, aliceArrows):
-        dp = [0] * 12
-        dic = {}
-        res = [0] * 12
-        for i in range(12):
-            dp[i] = i / (aliceArrows[i] + 1)
-            dic[dp[i]] = i, aliceArrows[i] + 1
-        dp.sort()
-        dp = dp[::-1]
-        for i in range(12):
-            if numArrows >= dic[dp[i]][1]:
-                res[dic[dp[i]][0]] = dic[dp[i]][1]
-                numArrows -= dic[dp[i]][1] + 1
-        return res, dp, dic
+    def numberOfWays(self, s: str) -> int:
+        os = 0
+        ls = 0
+        res = 0
+        for i in range(len(s)):
+            if int(s[i]) == 1:
+                ls += 1
+            else:
+                os += 1
+        l, r = 0, len(s) - 1
+        temp = os
+        while l < r:
+            if int(s[l]) == 0:
+                l += 1
+                temp -= 1
+            if int(s[r]) == 0:
+                r -= 1
+                temp -= 1
+            if int(s[l]) == int(s[r]) == 1:
+                res += temp
+                if int(s[l + 1]) == 1:
+                    l += 1
+                else:
+                    r -= 1
+        l, r = 0, len(s) - 1
+        temp = ls
+        while l < r:
+            if int(s[l]) == 1:
+                l += 1
+                temp -= 1
+            if int(s[r]) == 1:
+                r -= 1
+                temp -= 1
+            if int(s[l]) == int(s[r]) == 0:
+                res += temp
+                if int(s[l + 1]) == 0:
+                    l += 1
+                else:
+                    r -= 1
+        return res
 
-S = Solution()
-text = "SSRSSRLLRSLLRSRSSRLRRRRLLRRLSSRR"
-aliceArrows = [1,1,0,1,0,0,2,1,0,1,2,0]
-numArrows = 9
-print(S.maximumBobPoints( numArrows,aliceArrows))
+nums = "0001100100"
+s = Solution()
+print(s.numberOfWays(nums))
